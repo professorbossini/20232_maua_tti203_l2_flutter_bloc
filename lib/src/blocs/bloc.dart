@@ -5,14 +5,21 @@ class Bloc with Validators{
   final _emailStreamController = StreamController <String> ();
   final _passwordStreamController = StreamController <String>();
 
- Function(String) get changeEmail => _emailStreamController.sink.add;
+  Function(String) get changeEmail => _emailStreamController.sink.add;
 
- Function(String) get changePassword => _passwordStreamController.sink.add;
+  Function(String) get changePassword => _passwordStreamController.sink.add;
 
- Stream<String> get email => _emailStreamController.stream;
+  Stream<String> get email => _emailStreamController.stream.transform(validateEmail);
 
- Stream <String> get password => _passwordStreamController.stream;
+  Stream <String> get password => _passwordStreamController.stream.transform(validatePassword);
+
+  void dispose(){
+    _emailStreamController.close();
+    _passwordStreamController.close();
+  }
 }
+
+final bloc = Bloc();
 
 // void teste(){
 //   // final bloc = Bloc();
