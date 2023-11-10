@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gerenciamento_de_estadov2/src/blocs/bloc.dart';
 
 class LoginTela extends StatelessWidget{
   @override
@@ -25,12 +26,19 @@ class LoginTela extends StatelessWidget{
   }
 
   Widget emailField(){
-    return TextField(
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        hintText: 'seu@email.com',
-        labelText: 'Digite seu e-mail'
-      ),
+    return StreamBuilder(
+      stream: bloc.email,
+      builder: (context, AsyncSnapshot <String> snapshot){
+        return TextField(
+          onChanged: (valor){bloc.changeEmail(valor);},
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+            hintText: 'seu@email.com',
+            labelText: 'Digite seu e-mail',
+            errorText: snapshot.hasError ? '${snapshot.error}' : null 
+          ),
+        );
+      },
     );
   }
 
