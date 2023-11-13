@@ -19,7 +19,7 @@ class Bloc with Validators{
   }
 }
 
-final bloc = Bloc();
+//final bloc = Bloc();
 
 // void teste(){
 //   // final bloc = Bloc();
